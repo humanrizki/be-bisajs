@@ -19,6 +19,9 @@ return new class extends Migration
             $table->foreignIdFor(Role::class);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('gauth_id')->nullable();
+            $table->string('gauth_type')->nullable();
+            $table->string('avatar')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
