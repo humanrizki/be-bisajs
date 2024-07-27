@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Point;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('point_users', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(Point::class);
+            $table->foreignIdFor(User::class);
+            $table->float('total_now');
+            $table->float('total_before');
+            $table->enum('status_total', ['increase','decrease']);
             $table->timestamps();
         });
     }

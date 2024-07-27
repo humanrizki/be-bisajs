@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContentCoursesController;
 use App\Http\Controllers\OauthController;
 use App\Http\Controllers\users\ApiUsersLoginController;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ Route::get('/user', function (Request $request) {
 Route::post('/users/login', [ApiUsersLoginController::class, 'login']);
 Route::post('/users/logout', [ApiUsersLoginController::class, 'logout'])->middleware('auth:sanctum');
 Route::post('/users/register/oauth-google', [OauthController::class, 'registerGoogle']);
+Route::post('/courses/content', [ContentCoursesController::class, 'saveContent']);
 // Route::get('/courses', [CoursesController::class, 'index'])->middleware('auth:sanctum');
 // Route::get('/courses/:slug', [CoursesController::class, 'show'])->middleware('auth:sanctum');
 
