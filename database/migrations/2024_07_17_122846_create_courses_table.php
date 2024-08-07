@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('slug');
             $table->text('description');
+            $table->text('description_html');
             $table->float('prices_point')->nullable();
             $table->foreignIdFor(Category::class);
             $table->foreignIdFor(User::class);

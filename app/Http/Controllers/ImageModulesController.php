@@ -2,22 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Course;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
-class CourseController extends Controller
+class ImageModulesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index()
     {
         //
-        $courses = Course::with(['user','category'])->get();
-        return response()->json([
-            "courses"=>$courses
-        ]);
     }
 
     /**
@@ -34,25 +29,29 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         //
+        if($request->hasFile('image')) {
+            $file = $request->file('image');
+            $path = $file->store('public/img/courses');
+            $url = Storage::url($path);
+
+            return response()->json(['url' => $url], 200);
+        }
+
+        return response()->json(['message' => 'Upload failed'], 400);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Course $course, string $slug)
+    public function show(string $id)
     {
         //
-        $getCourse = $course->where('slug',$slug)->with(['user','category','sub_courses'])->firstOrFail();
-        return response()->json([
-            'message'=>'Get Data Succeed',
-            'course'=>$getCourse
-        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Course $course)
+    public function edit(string $id)
     {
         //
     }
@@ -60,7 +59,7 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Course $course)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -68,7 +67,7 @@ class CourseController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Course $course)
+    public function destroy(string $id)
     {
         //
     }
